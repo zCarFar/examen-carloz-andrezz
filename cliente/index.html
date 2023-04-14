@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>TuChat</title>
+</head>
+
+<body>
+
+    <div class="toca">Welcome to YouChat
+    </div>
+
+    <div id="FormularioUserArea">
+        <div class="row g-2 d-flex justify-content-center m-2">
+            <div class="col-4  p-4">
+                <label class="sub mb-2" for=""> Usuario a conectar: </label>
+                <form class="hs d-block justify-content-center" action="" id="formularioUser">
+                    <div class="form-floating mb-1">
+                        <input type="text" class="form-control" id="username" placeholder="name@example.com">
+                        <label for="floatingInput">Ingrese su usuario</label>
+                    </div>
+                    <button class="bton btn btn-primary mt-2" type="submit">Ingresar</button>
+                </form>
+            </div>
+            <div class="col-3 ">
+                <img src="https://www.clasesdeperiodismo.com/wp-content/uploads/2016/06/WhatsApp.gif" alt=""
+                    width="400px" height="250px" style="border-radius: 15px;">
+            </div>
+        </div>
+    </div>
+
+    <div class="general">
+        <div id="AreaMensaje" class="parteprin row g-2 d-flex">
+            <div class="part1 col-3 ">
+                <div class="parte1">
+                    <h3 class="sub">Usuarios en Linea</h3>
+                    <ul class="list-group" id="users"></ul>
+                </div>
+            </div>
+            <div class="col-9 ">
+                <div class="parte2">
+                    <div class="scrollable d-block">
+                        <ul class="list-group" id="mensajess"></ul>
+                    </div>
+                    <form class="mb-3 p-3" id="form-container">
+                        <label for="exampleFormControlTextarea1" class="txtsend form-label">Ingrese su mensaje: </label>
+                        <div class="btnes d-flex">
+                            <input class="form-control m-1" id="input1" type="text">
+                            <label for="firstimg">
+                                <img src="https://cdn-icons-png.flaticon.com/512/336/336035.png" alt="" width="37"
+                                    height="38" style="cursor: pointer; border-radius: 10px;">
+                            </label>
+                            <input type="file" name="image" id="firstimg" style="display: none; visibility: none;">
+                            <button type="submit" class="bton btn btn-primary m-1"> Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+    <script>
+        //onchange  en el input
+
+
+        let socket = io()
+        //toca referenciar los elementos de la estructura html DOM
+        //los del formulario 
+
+        const form = $('#form-container');
+        const input = $('#input1');
+        const mensajes = $('#mensajess');
+        const users = $('#users');
+        const username = $('#username');
+        const AreaMensaje = $('#AreaMensaje');
+        const FormularioUserArea = $('#FormularioUserArea');
+
+        const hide = (element) => element.addClass('d-none');
+        const show = (element) => element.removeClass('d-none');
+
+        const submitForm = (e) => {
+            e.preventDefault();
+            const inputValue = input.val();
+            if (inputValue) {
+                const data = {
+                    username: username.val(),
+                    message: inputValue
+                };
+                socket.emit('chat', data);
+                input.val('');
+            }
+        };
+
+        const newMessage = (msg) => {
+            const { users, message } = msg;
+            const item = $('<li>').text(`${users}: ${message}`);
+            mensajes.append(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        };
+
+        const newUser = (e) => {
+            e.preventDefault();
+            const usernameValue = username.val();
+            socket.emit('new user', usernameValue, (msg) => {
+                if (msg) {
+                    hide(FormularioUserArea);
+                    show(AreaMensaje);
+                }
+            });
+            users.val('');
+        };
+
+        const renderUsers = (msg) => {
+            users.empty();
+            msg.forEach((user) => {
+                const item = $('<li>').text(user);
+                users.append(item);
+            });
+        };
+
+        const addImage = (msg, base64image) => {
+            const item = $('<li>');
+            const img = $('<img>').attr('src', base64image);
+            item.append(img);
+            mensajes.append(item);
+        };
+
+        const fileChange = (e) => {
+            const file = e.originalEvent.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const base64image = event.target.result;
+                socket.emit('image', base64image);
+            };
+            reader.readAsDataURL(file);
+        };
+
+        form.on('submit', submitForm);
+        socket.on('chat', newMessage);
+        FormularioUserArea.on('submit', newUser);
+        socket.on('get users', renderUsers);
+        socket.on('add image', addImage);
+        $('#firstimg').on('change', fileChange);
+
+    </script>
+
+</body>
+
+<style>
+    body {
+        background-color: rgba(250, 235, 215, 0.062);
+    }
+
+    .general {
+        height: 100%;
+        width: 70%;
+        margin-left: 15%;
+    }
+
+    .toca {
+        background-color: rgba(96, 214, 73, 0.349);
+        height: 4rem;
+        padding-top: 0.5%;
+        text-align: center;
+        font-size: 200%;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: rgba(0, 0, 0, 0.877);
+        border-bottom: 2px solid rgba(56, 55, 55, 0.507);
+        margin-bottom: 3%;
+    }
+
+    .sub {
+        margin-top: 10%;
+        text-align: center;
+        font-size: 120%;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: rgba(0, 0, 0, 0.685);
+    }
+
+    .part1 {
+        background-color: rgba(145, 145, 145, 0.644);
+        border-radius: 10px;
+        border: 2px solid rgba(56, 55, 55, 0.507);
+    }
+
+    .txtsend {
+        margin-top: 1%;
+        color: rgba(0, 0, 0, 0.63);
+    }
+
+    .scrollable {
+        height: 25rem;
+        overflow: auto;
+        border: 2px solid rgba(56, 55, 55, 0.507);
+        border-radius: 10px;
+        background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/disp/ecd43224664569.56337fc73a2bd.gif");
+        background-size: cover;
+        /* opcional, para ajustar la imagen al tamaño de la pantalla */
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 3
+    }
+
+    ul>li {
+        padding: 1% 2%;
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 2%;
+        margin-bottom: 1%;
+        border: 2px solid rgba(0, 0, 0, 0.425);
+        border-radius: 10px;
+        font-weight: 600;
+        background-color: rgba(129, 211, 133, 0.671);
+    }
+
+    ul>li:nth-child(odd) {
+        justify-content: end;
+        background: rgba(207, 230, 228, 0.932);
+        text-align: right;
+        font-size: arial;
+        font-weight: 600;
+        color: rgb(0, 0, 0);
+    }
+
+    .bton {
+        background-color: rgb(48, 112, 35);
+    }
+</style>
+
+</html>
