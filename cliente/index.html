@@ -13,51 +13,92 @@
 
 <body>
 
-    <div class="toca">Welcome to YouChat
+    <div class="toca" style="color: rgb(0, 0, 0);">A&C 
     </div>
 
     <div id="FormularioUserArea">
         <div class="row g-2 d-flex justify-content-center m-2">
             <div class="col-4  p-4">
-                <label class="sub mb-2" for=""> Usuario a conectar: </label>
-                <form class="hs d-block justify-content-center" action="" id="formularioUser">
-                    <div class="form-floating mb-1">
-                        <input type="text" class="form-control" id="username" placeholder="name@example.com">
-                        <label for="floatingInput">Ingrese su usuario</label>
+                <div id="formuini">
+                    <div class="centrar">
+                        <img src="https://cdn.icon-icons.com/icons2/1715/PNG/512/2730383-fall-inkcontober-leaf-orange-season_112685.png"
+                            alt="" width="80px" height="80px">
                     </div>
-                    <button class="bton btn btn-primary mt-2" type="submit">Ingresar</button>
-                </form>
-            </div>
-            <div class="col-3 ">
-                <img src="https://www.clasesdeperiodismo.com/wp-content/uploads/2016/06/WhatsApp.gif" alt=""
-                    width="400px" height="250px" style="border-radius: 15px;">
+                    <div class="textoaaa">
+                        <h1 style="font-family: 'DM Serif Text', serif;
+                                font-weight: 600; color: rgb(0, 0, 0); margin-top: 10%;">
+                            Meet your friends</h1>
+                        <h4 style="font-family: 'DM Serif Text', serif;">Always online with your friends</h4>
+                    </div>
+                    <form class="hs d-block justify-content-center" action="" id="formularioUser">
+                        <div class="form-floating mb-1">
+                            <input type="text" class="form-control" id="username" placeholder="ingresa tu usuario pa">
+                            <label for="floatingInput" style="font-family: 'DM Serif Text', serif; text-align: center;">
+                                ⠀⠀⠀⠀⠀⠀⠀⠀Ingrese aqui su nombre de usuario</label>
+                        </div>
+
+
+                        <button class="bt mt-2" type="submit" style="cursor: pointer; background-color: rgba(0, 0, 0, 0.918);
+                        color: antiquewhite; border-radius: 10px; width:50%;
+                        margin-left:25%; font-family: 'DM Serif Text',serif;">Ingresar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="general">
-        <div id="AreaMensaje" class="parteprin row g-2 d-flex">
+        <div id="AreaMensaje" class="parteprin row g-2 d-none">
             <div class="part1 col-3 ">
                 <div class="parte1">
-                    <h3 class="sub">Usuarios en Linea</h3>
+                    <h3 class="sub" style="font-family: 'DM Serif Text', serif; font-weight: 600;">Usuarios en Linea</h3>
                     <ul class="list-group" id="users"></ul>
                 </div>
             </div>
-            <div class="col-9 ">
+            <div class="col-9">
                 <div class="parte2">
                     <div class="scrollable d-block">
                         <ul class="list-group" id="mensajess"></ul>
                     </div>
                     <form class="mb-3 p-3" id="form-container">
-                        <label for="exampleFormControlTextarea1" class="txtsend form-label">Ingrese su mensaje: </label>
+                        <label for="exampleFormControlTextarea1" class="txtsend form-label"
+                            style="font-weight: 550; margin-left: 2%;">Ingrese su mensaje: </label>
                         <div class="btnes d-flex">
                             <input class="form-control m-1" id="input1" type="text">
                             <label for="firstimg">
-                                <img src="https://cdn-icons-png.flaticon.com/512/336/336035.png" alt="" width="37"
-                                    height="38" style="cursor: pointer; border-radius: 10px;">
+                                <img src="https://cdn.icon-icons.com/icons2/1510/PNG/512/attachpaperclipsymbolincircularbutton_104724.png"
+                                    alt="" width="37" height="38" style="cursor: pointer; border-radius: 10px;">
                             </label>
                             <input type="file" name="image" id="firstimg" style="display: none; visibility: none;">
-                            <button type="submit" class="bton btn btn-primary m-1"> Enviar</button>
+
+                            <!-- Botón de emojis -->
+                            <label for="emoji-btn">
+                                <img src="https://cdn.icon-icons.com/icons2/3692/PNG/96/emoji_emojies_icon_229559.png"
+                                    alt="" width="37" height="38" style="cursor: pointer; border-radius: 10px;">
+                            </label>
+                            <button id="emoji-btn" style="display: none; visibility: none;"></button>
+
+                            <!-- Selector de emojis -->
+                            <div id="emoji-selector">
+                                <button class="emoji" onclick="selectEmoji('😀')">😀</button>
+                                <button class="emoji" onclick="selectEmoji('😂')">😂</button>
+                                <button class="emoji" onclick="selectEmoji('😍')">😍</button>
+                                <button class="emoji" onclick="selectEmoji('👍')">👍</button>
+                                <button class="emoji" onclick="selectEmoji('👎')">👎</button>
+                                <button class="emoji" onclick="selectEmoji('😎')">😎</button>
+                                <button class="emoji" onclick="selectEmoji('🐉')">🐉</button>
+                                <button class="emoji" onclick="selectEmoji('🗿')">🗿</button>
+                                <button class="emoji" onclick="selectEmoji('💜')">💜</button>
+                                <button class="emoji" onclick="selectEmoji('🍺')">🍺</button>
+                                <button class="emoji" onclick="selectEmoji('🍻')">🍻</button>
+                                <button class="emoji" onclick="selectEmoji('♦')">♦</button>
+                            </div>
+                            <label for="boton">
+                                <img src="https://cdn.icon-icons.com/icons2/1875/PNG/512/send_120237.png" alt=""
+                                    width="44" height="46" style="cursor: pointer; border-radius: 10px;">
+                            </label>
+                            <button type="submit" class="bton btn btn-primary" id="boton"
+                                style="display: none; visibility: none;"> Enviar</button>
                         </div>
                     </form>
                 </div>
@@ -71,10 +112,11 @@
         crossorigin="anonymous"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
+
     <script>
         //onchange  en el input
 
-
+        var usernameCurrent = ""
         let socket = io()
         //toca referenciar los elementos de la estructura html DOM
         //los del formulario 
@@ -92,7 +134,9 @@
 
         const submitForm = (e) => {
             e.preventDefault();
+
             const inputValue = input.val();
+
             if (inputValue) {
                 const data = {
                     username: username.val(),
@@ -104,18 +148,32 @@
         };
 
         const newMessage = (msg) => {
-            const { users, message } = msg;
-            const item = $('<li>').text(`${users}: ${message}`);
-            mensajes.append(item);
-            window.scrollTo(0, document.body.scrollHeight);
+            const { username, message } = msg;
+
+            if (message.search("data:") == -1) {
+                const item = $('<li>').text(`${username}: ${message}`);
+                mensajes.append(item);
+                window.scrollTo(0, document.body.scrollHeight);
+
+            } else {
+                const item = $('<li>');
+
+                const img = $('<img>').attr('src', message).attr("style", "max-width:300px");
+                item.append(img);
+                mensajes.append(item);
+
+            }
+
         };
 
         const newUser = (e) => {
             e.preventDefault();
             const usernameValue = username.val();
+            usernameCurrent = username.val();
             socket.emit('new user', usernameValue, (msg) => {
                 if (msg) {
                     hide(FormularioUserArea);
+                    console.log(AreaMensaje)
                     show(AreaMensaje);
                 }
             });
@@ -130,29 +188,69 @@
             });
         };
 
-        const addImage = (msg, base64image) => {
-            const item = $('<li>');
-            const img = $('<img>').attr('src', base64image);
-            item.append(img);
-            mensajes.append(item);
-        };
+        /* const addImage = (msg) => {
+             const {base64image}=msg 
+             const item = $('<li>');
+             const img = $('<img>').attr('src', base64image);
+             item.append(img);
+             mensajes.append(item);
+             console.log(123)
+         };*/
 
         const fileChange = (e) => {
             const file = e.originalEvent.target.files[0];
             const reader = new FileReader();
             reader.onload = (event) => {
                 const base64image = event.target.result;
-                socket.emit('image', base64image);
+                socket.emit('chat', { message: base64image });
+
+
             };
             reader.readAsDataURL(file);
         };
 
         form.on('submit', submitForm);
         socket.on('chat', newMessage);
+        socket.on('newImage', newMessage);
         FormularioUserArea.on('submit', newUser);
         socket.on('get users', renderUsers);
-        socket.on('add image', addImage);
+
         $('#firstimg').on('change', fileChange);
+
+        //emoji
+        // Manejador de eventos para el botón de emojis
+        document.getElementById('emoji-btn').addEventListener('click', () => {
+            // Mostrar el selector de emojis
+            document.getElementById('emoji-selector').classList.toggle('show');
+        });
+        // Función para seleccionar un emoji y enviarlo al servidor
+        function selectEmoji(emoji) {
+
+            const data = {
+                username: username.val(),
+                emoji: emoji
+            };
+            // Enviar el emoji al servidor
+
+            socket.emit('emoji', data);
+
+            // Ocultar el selector de emojis
+            document.getElementById('emoji-selector').classList.remove('show');
+        }
+
+        socket.on('emoji', (data) => {
+            console.log('Emoji recibido:', data);
+
+            // Agregar el emoji al chat
+            /*const message = document.createElement('div');
+           message.innerHTML = emoji;
+           document.getElementById('mensajess').appendChild(message);*/
+
+            const item = $('<li>').text(`${data.username}: ${data.emoji}`);
+            mensajes.append(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
 
     </script>
 
@@ -160,7 +258,9 @@
 
 <style>
     body {
-        background-color: rgba(250, 235, 215, 0.062);
+        background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/67258127227219.56361a5179812.jpg");
+        background-size: cover;
+        /* opcional, para ajustar la imagen al tamaño de la pantalla */
     }
 
     .general {
@@ -170,34 +270,31 @@
     }
 
     .toca {
-        background-color: rgba(96, 214, 73, 0.349);
+        background-color: rgb(236, 158, 55);
         height: 4rem;
         padding-top: 0.5%;
         text-align: center;
         font-size: 200%;
         font-family: Georgia, 'Times New Roman', Times, serif;
-        color: rgba(0, 0, 0, 0.877);
         border-bottom: 2px solid rgba(56, 55, 55, 0.507);
         margin-bottom: 3%;
     }
 
+    .textoaaa {
+        text-align: center;
+    }
+
     .sub {
         margin-top: 10%;
-        text-align: center;
         font-size: 120%;
-        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-align: center;
         color: rgba(0, 0, 0, 0.685);
     }
 
     .part1 {
-        background-color: rgba(145, 145, 145, 0.644);
+        background-color: rgb(248, 220, 158);
         border-radius: 10px;
         border: 2px solid rgba(56, 55, 55, 0.507);
-    }
-
-    .txtsend {
-        margin-top: 1%;
-        color: rgba(0, 0, 0, 0.63);
     }
 
     .scrollable {
@@ -205,9 +302,7 @@
         overflow: auto;
         border: 2px solid rgba(56, 55, 55, 0.507);
         border-radius: 10px;
-        background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/disp/ecd43224664569.56337fc73a2bd.gif");
-        background-size: cover;
-        /* opcional, para ajustar la imagen al tamaño de la pantalla */
+        background-color: white;
     }
 
     ul {
@@ -225,7 +320,7 @@
         border: 2px solid rgba(0, 0, 0, 0.425);
         border-radius: 10px;
         font-weight: 600;
-        background-color: rgba(129, 211, 133, 0.671);
+        background-color: rgb(129, 211, 133);
     }
 
     ul>li:nth-child(odd) {
@@ -237,8 +332,39 @@
         color: rgb(0, 0, 0);
     }
 
+    .centrar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .bton {
         background-color: rgb(48, 112, 35);
+    }
+
+    #username {
+        border-radius: 30px;
+    }
+
+    #emoji-selector {
+        display: none;
+        position: absolute;
+        bottom: 40px;
+        right: 10px;
+    }
+
+    #emoji-selector.show {
+        display: block;
+    }
+
+    #emoji-selector button {
+        font-size: 20px;
+        margin: 0 5px;
+        padding: 5px;
+    }
+
+    #input1 {
+        border-radius: 20px;
     }
 </style>
 

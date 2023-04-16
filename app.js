@@ -34,7 +34,7 @@ io.on('connection',(socket)=>{
     })
 
     socket.on('chat',(msg)=>{
-        console.log('Mensaje: '+msg)
+
     })
    
     //enviar mensaje
@@ -58,6 +58,15 @@ io.on('connection',(socket)=>{
    socket.on('user image', (image)=>{
     io.sockets.emit('addimage', image)
    })
+
+//emoji
+   socket.on('emoji', (emoji) => {
+    console.log('Emoji recibido:', emoji);
+
+    // Transmitir el emoji a todos los clientes conectados
+    io.emit('emoji', emoji);
+  });
+
 
 })
  
